@@ -1420,6 +1420,15 @@ def test_supports_tool_choice_simple_tests():
     assert litellm.utils.supports_tool_choice(model="perplexity/sonar") is False
 
 
+@pytest.mark.usefixtures("local_model_cost_map")
+def test_amazon_nova_pro_supports_tool_choice() -> None:
+    assert litellm.utils.supports_tool_choice(model="amazon.nova-pro-v1:0") is True
+    assert (
+        litellm.utils.supports_tool_choice(model="bedrock/amazon.nova-pro-v1:0")
+        is True
+    )
+
+
 def test_check_provider_match():
     """
     Test the _check_provider_match function for various provider scenarios
